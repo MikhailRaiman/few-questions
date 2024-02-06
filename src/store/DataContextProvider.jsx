@@ -4,16 +4,21 @@ import { firestore, collectionData } from './firebase';
 
 export const DataContext = createContext({
     quizes: [],
-    questions: []
+    questions: [],
+    selectedQuiz: {name: '', id: ''},
+    setSelectedQuiz: () => {}
 });
 
 export default function DataContextProvider({children}) {
     const [quizes, setQuizes] = useState([]);
     const [questions, setQuestions] = useState([]);
+    const [selectedQuiz, setSelectedQuiz] = useState({name: '', id: ''});
 
     const ctxValue = {
         quizes: quizes,
-        questions: questions
+        questions: questions,
+        selectedQuiz: selectedQuiz,
+        setSelectedQuiz: setSelectedQuiz
     }
 
     useEffect(() => {

@@ -10,6 +10,15 @@ const LoginForm = styled.form`
   padding: 20px;
 `;
 
+const FormB = styled.form`
+  max-width: 40rem;
+  margin: 5rem auto;
+  padding: 2rem;
+  background: linear-gradient(180deg, #280a48, #30008a);
+  border-radius: 8px;
+  box-shadow: 0 0 16px 1px rgba(0, 0, 0, 0.5);
+`;
+
 const InputField = styled.input`
   padding: 10px;
   margin-bottom: 10px;
@@ -34,44 +43,68 @@ const SubmitButton = styled.button`
 `;
 
 export default function AuthLoginPage() {
-    const emailInput = useRef();
-    const passwordInput = useRef();
-    const { authenticate } = useContext(AuthContext);
-    const navigate = useNavigate();
+  const emailInput = useRef();
+  const passwordInput = useRef();
+  const { authenticate } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        authenticate(emailInput.current.value, passwordInput.current.value);
-        // .then(res => {
-        //     setAuthData({userName: res, appModule: selectedModule});
-        //     localStorage.setItem('sequoia_module', selectedModule);
-        //     navigate(`/${selectedModule}`);
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        // })
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    authenticate(emailInput.current.value, passwordInput.current.value);
+    // .then(res => {
+    //     setAuthData({userName: res, appModule: selectedModule});
+    //     localStorage.setItem('sequoia_module', selectedModule);
+    //     navigate(`/${selectedModule}`);
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // })
+  };
 
-    const handleNavigateToRegister = () => {
-        navigate('/register');
-    }
+  const handleNavigateToRegister = () => {
+    navigate('/register');
+  }
 
-    return (
-        <LoginForm onSubmit={handleSubmit}>
-            <InputField
-                ref={emailInput}
-                type="email"
-                placeholder="Email"
-                required
-            />
-            <InputField
-                ref={passwordInput}
-                type="password"
-                placeholder="Password"
-                required
-            />
-            <button type="submit">Login</button>
-            <button onClick={handleNavigateToRegister} type="button">Register</button>
-        </LoginForm>
-    );
+  return (
+    <>
+      <FormB onSubmit={handleSubmit}>
+        <h2>Вход</h2>
+
+        <div className="control-row">
+          <div className="control no-margin">
+            <label htmlFor="email">Емейл</label>
+            <input required ref={emailInput} id="email" type="email" name="email" />
+          </div>
+
+          <div className="control no-margin">
+            <label htmlFor="password">Пароль</label>
+            <input required ref={passwordInput} id="password" type="password" name="password" />
+          </div>
+        </div>
+
+        <p className="form-actions">
+          <button type="button" onClick={handleNavigateToRegister} className="button button-flat">Регистрация</button>
+          <button className="button">Войти</button>
+        </p>
+      </FormB>
+
+      {/* <LoginForm onSubmit={handleSubmit}>
+        <InputField
+          ref={emailInput}
+          type="email"
+          placeholder="Email"
+          required
+        />
+        <InputField
+          ref={passwordInput}
+          type="password"
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Login</button>
+        <button onClick={handleNavigateToRegister} type="button">Register</button>
+      </LoginForm> */}
+    </>
+
+  );
 }

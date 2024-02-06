@@ -2,6 +2,9 @@ import { Outlet } from "react-router-dom";
 import { useContext, useEffect } from 'react';
 import { AuthContext } from "../store/AuthContentProvider";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Header from '../components/Header';
+import NavContainer from "../components/NavContainer";
 
 export default function Root() {
     const { userName, getAuthState, logOut } = useContext(AuthContext);
@@ -19,15 +22,17 @@ export default function Root() {
 
     return (
         <>
-            <header>Header</header>
-            <nav>
+            {!userName && <Header></Header>}
+            {userName && <NavContainer></NavContainer>}
+
+            {/* <nav>
                 <ul>
-                    <li><a href="#">Главная</a></li>
+                    <li><Link to="/quizes">My Quizes</Link></li>
                     <li><a href="#">О нас</a></li>
                     <li><a href="#">Контакты</a></li>
                 </ul>
             </nav>
-            <button onClick={logOut}>Logout</button>
+            <button onClick={logOut}>Logout</button> */}
             <Outlet></Outlet>
         </>
     );
