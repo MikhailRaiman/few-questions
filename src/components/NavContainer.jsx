@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import MenuButton from "./MenuButton";
 import { useState, useContext } from 'react';
-import { AuthContext } from "../store/AuthContentProvider";
+import { AuthContext } from "../store/DataContextProvider";
 import { useNavigate } from "react-router-dom";
 
 

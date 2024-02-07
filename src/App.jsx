@@ -7,7 +7,6 @@ import QuizListPage from "./pages/QuizListPage";
 import RunQuizPage from "./pages/RunQuizPage";
 import EditQuizPage from "./pages/EditQuizPage";
 import NewQuizPage from "./pages/NewQuizPage";
-import AuthContextProvider from "./store/AuthContentProvider";
 import DataContextProvider from "./store/DataContextProvider";
 
 const router = createBrowserRouter([
@@ -26,11 +25,9 @@ function App() {
   
   return (
     <>
-      <AuthContextProvider>
         <DataContextProvider>
           <RouterProvider router={router} />
         </DataContextProvider>
-      </AuthContextProvider>
     </>
   )
 }

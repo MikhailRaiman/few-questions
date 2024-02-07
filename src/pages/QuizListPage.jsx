@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { DataContext } from '../store/DataContextProvider.jsx';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import AddQuiz from '../components/AddQuiz.jsx';
 
 const Ul = styled.ul`
     list-style: none;
@@ -44,25 +45,31 @@ const Button = styled.button`
 `;
 
 export default function QuizListPage() {
-    const { quizes, setSelectedQuiz } = useContext(DataContext);
+    const { quizes, questions, setSelectedQuiz, setSelectedQuestions } = useContext(DataContext);
     const navigate = useNavigate();
 
     function setSelectionAndNavigate(id, name) {
         setSelectedQuiz({name: name, id: id});
+        const filteredQuestions = questions.filter(question => question.quizId === id);
+        setSelectedQuestions(filteredQuestions);
         navigate(`/quiz/${id}/edit`);
     }
 
     return (
-        <Ul>
-            {quizes && quizes.length > 0 && quizes.map(qItem => (
-                <Li key={qItem.id}>
-                    <Link to={`/quiz/${qItem.id}/run`}>{qItem.name}</Link>
-                    <span>
-                        <Button onClick={() => setSelectionAndNavigate(qItem.id, qItem.name)}>Редактировать</Button>
-                        <Button onClick={() => handleDeleteQuiz(qItem.id)}>X</Button>
-                    </span>
-                </Li>
-            ))}
-        </Ul>
+        <>
+            <AddQuiz></AddQuiz>
+            <Ul>
+                {quizes && quizes.length > 0 && quizes.map(qItem => (
+                    <Li key={qItem.id}>
+                        <Link to={`/quiz/${qItem.id}/run`}>{qItem.name}</Link>
+                        <span>
+                            <Button onClick={() => setSelectionAndNavigate(qItem.id, qItem.name)}>Редактировать</Button>
+                            <Button onClick={() => handleDeleteQuiz(qItem.id)}>X</Button>
+                        </span>
+                    </Li>
+                ))}
+            </Ul>
+        </>
+
     );
 }

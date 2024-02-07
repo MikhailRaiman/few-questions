@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { useContext, useEffect } from 'react';
-import { AuthContext } from "../store/AuthContentProvider";
+import { AuthContext } from "../store/DataContextProvider";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from '../components/Header';
@@ -11,7 +11,7 @@ export default function Root() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getAuthState();
+
         if (userName) {
             navigate('/quizes');
         } else {

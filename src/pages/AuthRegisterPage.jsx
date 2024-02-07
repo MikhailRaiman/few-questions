@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../store/AuthContentProvider";
+import { AuthContext } from "../store/DataContextProvider";
 
 const FormB = styled.form`
   max-width: 40rem;
