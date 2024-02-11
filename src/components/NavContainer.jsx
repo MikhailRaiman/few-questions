@@ -3,6 +3,8 @@ import MenuButton from "./MenuButton";
 import { useState, useContext } from 'react';
 import { AuthContext } from "../store/DataContextProvider";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../store/fireFunctions";
+import { useDispatch } from "react-redux";
 
 
 const Nav = styled.nav`
@@ -22,13 +24,17 @@ const Menu = styled.menu`
 `;
 
 export default function NavContainer() {
+    const dispatch = useDispatch()
     const [mode, setMode] = useState('my');
-    const { logOut } = useContext(AuthContext);
     const navigate = useNavigate();
 
     function handleSetMode(mode) {
         setMode(mode);
         navigate('/quizes');
+    }
+
+    function handleLogout() {
+        dispatch(logout());
     }
 
     return (
@@ -37,7 +43,7 @@ export default function NavContainer() {
                 <MenuButton onClick={() => handleSetMode('my')} isSelected={mode === 'my'}>Мои опросы</MenuButton>
                 <MenuButton onClick={() => handleSetMode('all')} isSelected={mode === 'all'}>Все опросы</MenuButton>
             </Menu>
-            <MenuButton onClick={logOut}>Выход</MenuButton>
+            <MenuButton onClick={handleLogout}>Выход</MenuButton>
         </Nav>
     );
 }

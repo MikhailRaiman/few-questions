@@ -8,6 +8,11 @@ import RunQuizPage from "./pages/RunQuizPage";
 import EditQuizPage from "./pages/EditQuizPage";
 import NewQuizPage from "./pages/NewQuizPage";
 import DataContextProvider from "./store/DataContextProvider";
+import { checkAuth } from './store/fireFunctions';
+import { useDispatch } from 'react-redux';
+import { useEffect } from "react";
+
+let isInitial = true;
 
 const router = createBrowserRouter([
   { path: "/", element: <Root />, children: [
@@ -21,7 +26,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  // useFire();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch])
   
   return (
     <>

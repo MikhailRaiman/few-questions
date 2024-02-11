@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../store/DataContextProvider";
+import { useSelector } from 'react-redux';
 
 const LoginForm = styled.form`
   display: flex;
@@ -43,10 +44,17 @@ const SubmitButton = styled.button`
 `;
 
 export default function AuthLoginPage() {
+  const userId = useSelector(state => state.auth.userId);
   const emailInput = useRef();
   const passwordInput = useRef();
   const { authenticate } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (userId) {
+  //     navigate('/quizes');
+  //   }
+  // }, [userId]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

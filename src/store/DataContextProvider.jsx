@@ -124,9 +124,9 @@ export default function DataContextProvider({children}) {
             });
     }
 
-    useEffect(() => {
-        handleGetAuthState();
-    }, []);
+    // useEffect(() => {
+    //     handleGetAuthState();
+    // }, []);
 
     return (
         <AuthContext.Provider value={authCtxValue}>

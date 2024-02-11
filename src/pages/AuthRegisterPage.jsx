@@ -2,6 +2,9 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../store/DataContextProvider";
+import { useDispatch } from 'react-redux';
+import { register } from "../store/fireFunctions";
+import { useSelector } from 'react-redux';
 
 const FormB = styled.form`
   max-width: 40rem;
@@ -43,17 +46,26 @@ const SubmitButton = styled.button`
 `;
 
 export default function AuthRegisterPage() {
+  const userId = useSelector(state => state.auth.userId);
+  const dispatch = useDispatch();
   const [newUser, setNewUser] = useState({userName: '', email: '', password: ''});
-  const { register } = useContext(AuthContext);
+  //const { register } = useContext(AuthContext);
   const navigate = useNavigate();
 
   function handleSetUser(identifier, value) {
     setNewUser((prevUser) => ({...prevUser, [identifier]: value}));
   }
 
+  // useEffect(() => {
+  //   if (userId) {
+  //     navigate('/quizes');
+  //   }
+  // }, [userId]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    register(newUser.email, newUser.password, newUser.userName);
+    // register(newUser.email, newUser.password, newUser.userName);
+    dispatch(register({email: newUser.email, password: newUser.password, name: newUser.userName}));
   };
 
   const handleNavigateBack = () => {
