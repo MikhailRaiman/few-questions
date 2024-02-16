@@ -132,17 +132,6 @@ export default function EditQuizPage() {
         </div>
       </div>
 
-      {/* <div className="control-row">
-        <div className="control">
-          <label htmlFor="variant">Вариант</label>
-          <input ref={variantInput} type="text" id="variant" />
-        </div>
-
-        <div className="control">
-          <button onClick={handleAddVariant} type="button" className="button">Добавить вариант</button>
-        </div>
-      </div> */}
-
       {/* <fieldset style={{display: newQuestion.answers.length > 0 ? 'block' : 'none'}}>
         <legend>Выберите правильные варианты ответа</legend>
 
