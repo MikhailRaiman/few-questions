@@ -1,11 +1,11 @@
-import { app } from '../store/firebase'; 
-import { doc, deleteDoc, getFirestore } from "firebase/firestore";
-import { useContext } from 'react';
 import styled from 'styled-components'
-import { DataContext } from '../store/DataContextProvider.jsx';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import AddQuiz from '../components/AddQuiz.jsx';
+import { useSelector } from 'react-redux';
+import { deleteQuiz } from "../store/fireFunctions.js";
+import { useDispatch } from 'react-redux';
+import { dataActions } from '../store/data-slice.js'
 
 const Ul = styled.ul`
     list-style: none;
@@ -45,15 +45,19 @@ const Button = styled.button`
 `;
 
 export default function QuizListPage() {
-    const { quizes, questions, setSelectedQuiz, setSelectedQuestions } = useContext(DataContext);
+    const quizes = useSelector(state => state.data.quizes);
+    const userId = useSelector(state => state.auth.userId);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    function setSelectionAndNavigate(id, name) {
-        setSelectedQuiz({name: name, id: id});
-        const filteredQuestions = questions.filter(question => question.quizId === id);
-        setSelectedQuestions(filteredQuestions);
-        navigate(`/quiz/${id}/edit`);
+    function setSelectionAndNavigate(quiz) {
+        dispatch(dataActions.setSelectedQuiz(quiz.id));
+        navigate(`/quiz/${quiz.id}/edit`);
     }
+
+    function handleDeleteQuiz(quizId) {
+        deleteQuiz(quizId, userId);
+    } 
 
     return (
         <>
@@ -63,7 +67,7 @@ export default function QuizListPage() {
                     <Li key={qItem.id}>
                         <Link to={`/quiz/${qItem.id}/run`}>{qItem.name}</Link>
                         <span>
-                            <Button onClick={() => setSelectionAndNavigate(qItem.id, qItem.name)}>Редактировать</Button>
+                            <Button onClick={() => setSelectionAndNavigate(qItem)}>Редактировать</Button>
                             <Button onClick={() => handleDeleteQuiz(qItem.id)}>X</Button>
                         </span>
                     </Li>

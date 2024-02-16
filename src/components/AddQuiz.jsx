@@ -1,16 +1,17 @@
-import { useContext, useState } from 'react';
-import { firestore } from '../store/firebase'; 
-import { addDoc, collection } from 'firebase/firestore';
-import { AuthContext } from '../store/DataContextProvider';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addQuiz } from '../store/fireFunctions';
 
 export default function AddQuiz() {
-    const { userId } = useContext(AuthContext);
+    const dispatch = useDispatch();
+    const userId = useSelector(state => state.auth.userId);
     const [ newQuizName, setNewQuizName ] = useState('');
+
     async function handleAddQuiz() {
         try {
-            addDoc(collection(firestore, 'quiz'), { name: newQuizName, owner: userId, type: 'quiz', state: 'draft', visibility: 'private' }).then(res => {
-                setNewQuizName('');
-            });
+            const newQuiz = { name: newQuizName, owner: userId, type: 'quiz', state: 'draft', visibility: 'private' };
+            dispatch(addQuiz(newQuiz, userId));
+            setNewQuizName('');
         } catch (error) {
             console.error(error);
         }

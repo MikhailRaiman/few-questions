@@ -46,7 +46,7 @@ fieldset {
 
 .control input {
   display: block;
-  max-width: 15rem;
+  max-width: 25rem;
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 4px;
@@ -144,5 +144,18 @@ fieldset {
 .button-flat:focus {
   background-color: transparent;
   color: #869999;
+}
+
+.row-between {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.variant {
+  padding: 3px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 
